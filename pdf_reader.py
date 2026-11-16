@@ -1,5 +1,5 @@
 import streamlit as st
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 from langchain_community.embeddings import FastEmbedEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -38,10 +38,11 @@ if uploaded_file is not None:
     question = st.text_input("Apna sawaal yahan likho:")
     if question:
         with st.spinner("Jawab dhundh raha hoon... 🔍"):
-            llm = ChatGoogleGenerativeAI(
-                model="gemini-1.5-flash",
-                google_api_key=st.secrets["GOOGLE_API_KEY"],
-                temperature=0.3
+            llm = ChatGroq(
+                 model="llama3-8b-8192",
+                 api_key=st.secrets["GROQ_API_KEY"],
+                 temperature=0.3
+
             )
             prompt = PromptTemplate.from_template("""
 Neeche diye gaye context ke basis pe sawaal ka jawab do.
